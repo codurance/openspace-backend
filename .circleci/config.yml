@@ -1,15 +1,15 @@
-version: 2.1
+version: 2
 orbs:
   aws-cli: circleci/aws-cli@0.1.20
 jobs:
-  aws-cli-setup:
-    executor: aws-cli/default
-    steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: open-space-serverless-admin
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+#  aws-cli-setup:
+#    executor: aws-cli/default
+#    steps:
+#      - checkout
+#      - aws-cli/setup:
+#          profile-name: open-space-serverless-admin
+#          aws-access-key-id: AWS_ACCESS_KEY_ID
+#          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
 
   build:
     docker:
@@ -42,6 +42,11 @@ jobs:
       - run:
           name: Run tests with coverage
           command: npm test --coverage
+
+      - run:
+          name: Setup AWS Credentials
+          command: |
+            serverless config credentials --provider aws --key $AWS_ACCESS_KEY_ID --secret $AWS_SECRET_ACCESS_KEY --profile open-space-serverless-admin
 
       - run:
           name: Deploy application
