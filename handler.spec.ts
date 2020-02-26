@@ -1,10 +1,13 @@
-// import * as mocha from 'mocha';
+// @ts-ignore
+import * as mocha from 'mocha';
 import * as chai from 'chai';
-// import { APIGatewayEvent, Handler, Callback, Context } from 'aws-lambda';
-import { hello } from './handler';
+// @ts-ignore
+import { APIGatewayEvent, Handler, Callback, Context } from 'aws-lambda';
+import { hello, helloAgain } from './handler';
 
 const expect = chai.expect;
-// const should = chai.should();
+// @ts-ignore
+const should = chai.should();
 
 describe("handler", () => {
     describe("hello", () => {
@@ -15,4 +18,15 @@ describe("handler", () => {
             })
         });
     });
+
+    describe("Hello again", () => {
+        it("should return 'Hello again!'", () => {
+            helloAgain(null, null, (error: Error, result: any) => {
+                expect(error).to.be.null;
+                result.body.should.equal('{"message":"Hello again!","input":null}');
+            })
+        });
+    });
 });
+
+

@@ -31,3 +31,10 @@ functions:
       - http:
           method: get
           path: hello
+
+  helloAgain:
+    handler: handler.helloAgain
+    events:
+      - http:
+          method: get
+          path: hello/again
