@@ -1,5 +1,3 @@
-
-
 service:
   name: openspace-backend
 # app and org for use with dashboard.serverless.com
