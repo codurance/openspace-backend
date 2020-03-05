@@ -4,8 +4,6 @@ import {Client} from "ts-postgres";
 const dotenv = require('dotenv');
 dotenv.config();
 
-
-
 export const hello: Handler = (event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const response = {
     statusCode: 200,
