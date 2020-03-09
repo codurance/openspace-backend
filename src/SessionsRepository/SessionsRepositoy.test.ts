@@ -1,5 +1,8 @@
-import {getAllSessions} from "./SessionsRepository";
+import SessionsRepository from "./SessionsRepository";
 
-test("should return all sessions", async () => {
-  expect(await getAllSessions()).toHaveProperty("names");
+test("should return all sessions from database", async () => {
+
+  const sessionsRepository = new SessionsRepository();
+
+  expect(await sessionsRepository.getAllSessions()).toHaveProperty("names");
 });
