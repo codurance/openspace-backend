@@ -4,18 +4,15 @@ import {instance, mock, verify, when} from "ts-mockito";
 
 describe("getAllSessions", () => {
 
-  it("should call SessionsRepository to get all sessions", () => {
-    const repositoryMock = mock<SessionsRepository>();
-    const repositoryMockInstance = instance(repositoryMock);
+  const repositoryMock = mock<SessionsRepository>();
+  const repositoryMockInstance = instance(repositoryMock);
 
+  it("should call SessionsRepository to get all sessions", () => {
     getAllSessions(repositoryMockInstance);
     verify(repositoryMock.getAllSessions()).called();
   });
 
   it("should return sessions in the correct format", async () => {
-    const repositoryMock = mock<SessionsRepository>();
-    const repositoryMockInstance = instance(repositoryMock);
-
     const mockResult = {
       names: [
         'id', 'presenter',
@@ -59,7 +56,6 @@ describe("getAllSessions", () => {
         ]
       ]
     };
-
     when(repositoryMock.getAllSessions()).thenResolve(mockResult);
 
     const expectedResult = [
@@ -99,3 +95,12 @@ describe("getAllSessions", () => {
 
   });
 });
+
+// describe("editSession", () => {
+//   it("should edit a session", async () => {
+//
+//     const repo = new SessionsRepository();
+//
+//     expect(await repo.editSessions(1)).toBe("a");
+//   })
+// });

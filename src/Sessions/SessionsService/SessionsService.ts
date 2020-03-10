@@ -3,6 +3,10 @@ export const getAllSessions = async (repo) => {
   return formatSessions(sessions.rows);
 };
 
+export const editSession = async (repo, id: number) => {
+return await repo.editSessions(id);
+};
+
 const formatSessions = (rows) => {
 
   let sessions: object[] = [];
