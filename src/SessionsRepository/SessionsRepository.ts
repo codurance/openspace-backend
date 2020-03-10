@@ -3,9 +3,14 @@ import {config} from "dotenv";
 
 config();
 
+export type SessionsResult = {
+  names: string[],
+  rows: any
+}
+
 class SessionsRepository {
 
-  getAllSessions = async () => {
+  async getAllSessions(): Promise<SessionsResult> {
 
     const client = new Client({
       host: process.env.PROD_DB_URI,
@@ -18,12 +23,23 @@ class SessionsRepository {
     await client.connect();
 
     try {
-      return await client.query(`SELECT * FROM sessions`);
+      const postgresResult = await client.query(`
+          SELECT *
+          FROM sessions
+                   LEFT JOIN spaces s on sessions.location_id = s.id
+                   LEFT JOIN session_likes sl on sessions.id = sl.session_id
+
+      `);
+
+      return {
+        names: postgresResult.names,
+        rows: postgresResult.rows
+      };
 
     } finally {
       await client.end();
     }
-  };
+  }
 }
 
 export default SessionsRepository
