@@ -1,8 +1,6 @@
 export const getAllSessions = async (repo) => {
-
-    const sessions = await repo.getAllSessions();
-
-    return formatSessions(sessions.rows);
+  const sessions = await repo.getAllSessions();
+  return formatSessions(sessions.rows);
 };
 
 const formatSessions = (rows) => {
@@ -14,10 +12,7 @@ const formatSessions = (rows) => {
   };
 
   for (let i = 0; i < rows.length; i++) {
-
-    const likes = hasLikes(rows[i])
-        ? rows[i].slice(12)
-        : [];
+    const likes = hasLikes(rows[i]) ? rows[i].slice(12) : [];
 
     sessions.push(
         {

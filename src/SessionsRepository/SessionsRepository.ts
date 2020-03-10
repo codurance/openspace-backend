@@ -35,7 +35,6 @@ class SessionsRepository {
         names: postgresResult.names,
         rows: postgresResult.rows
       };
-
     } finally {
       await client.end();
     }

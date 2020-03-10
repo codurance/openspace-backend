@@ -18,12 +18,12 @@ describe("getAllSessions", () => {
 
     const mockResult = {
       names: [
-        'id',         'presenter',
-        'time',       'title',
-        'type',       'location_id',
-        'id',         'description',
+        'id', 'presenter',
+        'time', 'title',
+        'type', 'location_id',
+        'id', 'description',
         'facilities', 'location',
-        'name',       'session_id',
+        'name', 'session_id',
         'likes'
       ],
       rows: [
@@ -64,7 +64,7 @@ describe("getAllSessions", () => {
 
     const expectedResult = [
       {
-        "id": 1,"title": "Matts Test",
+        "id": 1, "title": "Matts Test",
         "location": {
           "id": 1,
           "name": "Small Meeting Room",
@@ -74,7 +74,7 @@ describe("getAllSessions", () => {
         },
         "time": "12:12",
         "presenter": "Matt",
-        "type": "Demo","likes": [
+        "type": "Demo", "likes": [
           "jo.bloggs@codurance.com"
         ]
       },
@@ -95,7 +95,7 @@ describe("getAllSessions", () => {
       }
     ];
 
-    expect (await getAllSessions(repositoryMockInstance)).toStrictEqual(expectedResult);
+    expect(await getAllSessions(repositoryMockInstance)).toStrictEqual(expectedResult);
 
   });
 });
