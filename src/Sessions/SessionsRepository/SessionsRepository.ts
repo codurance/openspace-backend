@@ -1,12 +1,7 @@
-import {Client} from "ts-postgres";
+import {Client} from "pg";
 import {config} from "dotenv";
 
 config();
-
-export type SessionsResult = {
-  names: string[],
-  rows: any
-}
 
 class SessionsRepository {
 
@@ -18,7 +13,7 @@ class SessionsRepository {
     database: process.env.PROD_DB_NAME
   });
 
-  async getAllSessions(): Promise<SessionsResult> {
+  async getAllSessions() {
 
     await this.client.connect();
 
@@ -31,10 +26,8 @@ class SessionsRepository {
 
       `);
 
-      return {
-        names: postgresResult.names,
-        rows: postgresResult.rows
-      };
+      return postgresResult.rows;
+
     } finally {
       await this.client.end();
     }
@@ -43,22 +36,21 @@ class SessionsRepository {
   //TODO: Use node-postgres instead of ts-postgres to work with the database. Also mock the database using CREATE TEMPORARY TABLE
   // https://medium.com/geoblinktech/testing-postgres-application-one-simple-trick-eec587cd964
 
-  async editSession(id: number) {
-
-    await this.client.connect();
-
-    try {
-
-      this.client.query(`
-                  UPDATE sessions
-                  SET time = '12:50'
-                  where sessions.id = ${id}
-          `
-      );
-    } finally {
-      await this.client.end();
-    }
-  }
+  // async editSession(id: number) {
+  //
+  //   await this.client.connect();
+  //
+  //   try {
+  //     await this.client.query(`
+  //                 UPDATE sessions
+  //                 SET time = '12:50'
+  //                 where sessions.id = ${id}
+  //         `
+  //     );
+  //   } finally {
+  //     await this.client.end();
+  //   }
+  // }
 }
 
 export default SessionsRepository
