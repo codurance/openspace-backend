@@ -40,15 +40,21 @@ class SessionsRepository {
     }
   }
 
-  async editSessions() {
+  //TODO: Use node-postgres instead of ts-postgres to work with the database. Also mock the database using CREATE TEMPORARY TABLE
+  // https://medium.com/geoblinktech/testing-postgres-application-one-simple-trick-eec587cd964
+
+  async editSession(id: number) {
 
     await this.client.connect();
 
     try {
+
       this.client.query(`
-          UPDATE sessions
-          SET time = '12:12' where sessions.id = 53
-           `);
+                  UPDATE sessions
+                  SET time = '12:50'
+                  where sessions.id = ${id}
+          `
+      );
     } finally {
       await this.client.end();
     }

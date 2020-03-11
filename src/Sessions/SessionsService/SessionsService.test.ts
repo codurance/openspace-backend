@@ -101,6 +101,6 @@ describe("getAllSessions", () => {
 //
 //     const repo = new SessionsRepository();
 //
-//     expect(await repo.editSessions(1)).toBe("a");
+//     expect(await repo.editSessions(53)).toBe("a");
 //   })
 // });
