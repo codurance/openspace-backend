@@ -13,49 +13,37 @@ describe("getAllSessions", () => {
   });
 
   it("should return sessions in the correct format", async () => {
-    const mockResult = {
-      names: [
-        'id', 'presenter',
-        'time', 'title',
-        'type', 'location_id',
-        'id', 'description',
-        'facilities', 'location',
-        'name', 'session_id',
-        'likes'
-      ],
-      rows: [
-        [
-          1,
-          'Matt',
-          '12:12',
-          'Matts Test',
-          'Demo',
-          1,
-          1,
-          'Small Meeting Room',
-          'TV, Chromecast',
-          '3rd Floor, London Office',
-          'Small Meeting Room',
-          100,
-          'jo.bloggs@codurance.com'
-        ],
-        [
-          2,
-          'Andrei',
-          '13:13',
-          'Andreis Test',
-          'Practical',
-          3,
-          3,
-          'Kitchen on 3rd floor',
-          'TV, WiFi, Tables, Chromecast, HDMI',
-          '3rd Floor, London Office',
-          'Kitchen',
-          null,
-          null
-        ]
-      ]
-    };
+    const mockResult = [
+      {
+        id: 1,
+        presenter: 'Matt',
+        time: '12:12',
+        title: 'Matts Test',
+        type: 'Demo',
+        location_id: 1,
+        description: 'Small Meeting Room',
+        facilities: 'TV, Chromecast',
+        location: '3rd Floor, London Office',
+        name: 'Small Meeting Room',
+        session_id: 1,
+        likes: 'jo.bloggs@codurance.com'
+      },
+      {
+        id: 2,
+        presenter: 'Andrei',
+        time: '13:13',
+        title: 'Andreis Test',
+        type: 'Practical',
+        location_id: 2,
+        description: 'Kitchen on 3rd floor',
+        facilities: 'TV, WiFi, Tables, Chromecast, HDMI',
+        location: '3rd Floor, London Office',
+        name: 'Kitchen',
+        session_id: null,
+        likes: null
+      }
+    ];
+
     when(repositoryMock.getAllSessions()).thenResolve(mockResult);
 
     const expectedResult = [
@@ -70,15 +58,14 @@ describe("getAllSessions", () => {
         },
         "time": "12:12",
         "presenter": "Matt",
-        "type": "Demo", "likes": [
-          "jo.bloggs@codurance.com"
-        ]
+        "type": "Demo",
+        "likes": ["jo.bloggs@codurance.com"]
       },
       {
         "id": 2,
         "title": "Andreis Test",
         "location": {
-          "id": 3,
+          "id": 2,
           "name": "Kitchen",
           "description": "Kitchen on 3rd floor",
           "location": "3rd Floor, London Office",
@@ -95,12 +82,3 @@ describe("getAllSessions", () => {
 
   });
 });
-
-// describe("editSession", () => {
-//   it("should edit a session", async () => {
-//
-//     const repo = new SessionsRepository();
-//
-//     expect(await repo.editSessions(53)).toBe("a");
-//   })
-// });

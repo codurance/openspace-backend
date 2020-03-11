@@ -1,40 +1,35 @@
 export const getAllSessions = async (repo) => {
-  const sessions = await repo.getAllSessions();
-  return formatSessions(sessions.rows);
+
+  return formatSessions(await repo.getAllSessions());
 };
 
-export const editSession = async (repo, id: number) => {
-return await repo.editSessions(id);
-};
+const formatSessions = (sessions: object[]) => {
 
-const formatSessions = (rows) => {
+  const formattedSessions: object[] = [];
 
-  let sessions: object[] = [];
+  for (let i = 0; i < sessions.length; i++) {
 
-  const hasLikes = (row: object[]): boolean => {
-    return row[11] !== null;
-  };
+    const likes = () => {
+      return sessions[i]["likes"] !== null
+          ? [sessions[i]["likes"]]
+          : []
+    };
 
-  for (let i = 0; i < rows.length; i++) {
-    const likes = hasLikes(rows[i]) ? rows[i].slice(12) : [];
-
-    sessions.push(
-        {
-          id: rows[i][0],
-          title: rows[i][3],
-          location: {
-            id: rows[i][6],
-            name: rows[i][10],
-            description: rows[i][7],
-            location: rows[i][9],
-            facilities: rows[i][8]
-          },
-          time: rows[i][2],
-          presenter: rows[i][1],
-          type: rows[i][4],
-          likes: likes
-        }
-    )
+    formattedSessions.push({
+      id: sessions[i]["id"],
+      title: sessions[i]["title"],
+      location: {
+        id: sessions[i]["location_id"],
+        name: sessions[i]["name"],
+        description: sessions[i]["description"],
+        location: sessions[i]["location"],
+        facilities: sessions[i]["facilities"]
+      },
+      time: sessions[i]["time"],
+      presenter: sessions[i]["presenter"],
+      type: sessions[i]["type"],
+      likes: likes()
+    })
   }
-  return sessions;
+  return formattedSessions
 };

@@ -18,17 +18,16 @@ class SessionsRepository {
     await this.client.connect();
 
     try {
-      const postgresResult = await this.client.query(`
-          SELECT *
-          FROM sessions
-                   LEFT JOIN spaces s on sessions.location_id = s.id
-                   LEFT JOIN session_likes sl on sessions.id = sl.session_id
-
-      `);
+      const postgresResult = await this.client
+          .query(`
+              SELECT *
+              FROM sessions
+                       LEFT JOIN spaces s on sessions.location_id = s.id
+                       LEFT JOIN session_likes sl on sessions.id = sl.session_id`);
 
       return postgresResult.rows;
-
-    } finally {
+    }
+     finally {
       await this.client.end();
     }
   }
