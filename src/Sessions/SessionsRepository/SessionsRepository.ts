@@ -24,10 +24,11 @@ class SessionsRepository {
       try {
         await client.query("BEGIN");
         const result = await client.query(`
-            SELECT *
+            SELECT sessions.id as sessionid, *
             FROM sessions
-                     LEFT JOIN spaces s on sessions.location_id = s.id
-                     LEFT JOIN session_likes sl on sessions.id = sl.session_id`);
+                     JOIN spaces s on sessions.location_id = s.id
+                     lEFT JOIN session_likes sl on sessions.id = sl.session_id`);
+        console.log(result.rows);
         return result.rows;
       } catch (e) {
         await client.query("ROLLBACK");

@@ -15,9 +15,10 @@ describe("getAllSessions", () => {
   it("should return sessions in the correct format", async () => {
     const mockResult = [
       {
+        sessionid: 53,
         id: 1,
         presenter: 'Matt',
-        time: '12:12',
+        time: '12:30',
         title: 'Matts Test',
         type: 'Demo',
         location_id: 1,
@@ -25,16 +26,17 @@ describe("getAllSessions", () => {
         facilities: 'TV, Chromecast',
         location: '3rd Floor, London Office',
         name: 'Small Meeting Room',
-        session_id: 1,
-        likes: 'jo.bloggs@codurance.com'
+        session_id: '53',
+        likes: 'matthew.gray@codurance.com'
       },
       {
-        id: 2,
+        sessionid: 54,
+        id: 3,
         presenter: 'Andrei',
         time: '13:13',
         title: 'Andreis Test',
         type: 'Practical',
-        location_id: 2,
+        location_id: 3,
         description: 'Kitchen on 3rd floor',
         facilities: 'TV, WiFi, Tables, Chromecast, HDMI',
         location: '3rd Floor, London Office',
@@ -48,7 +50,7 @@ describe("getAllSessions", () => {
 
     const expectedResult = [
       {
-        "id": 1, "title": "Matts Test",
+        "id": 53, "title": "Matts Test",
         "location": {
           "id": 1,
           "name": "Small Meeting Room",
@@ -56,16 +58,16 @@ describe("getAllSessions", () => {
           "location": "3rd Floor, London Office",
           "facilities": "TV, Chromecast"
         },
-        "time": "12:12",
+        "time": "12:30",
         "presenter": "Matt",
         "type": "Demo",
-        "likes": ["jo.bloggs@codurance.com"]
+        "likes": ["matthew.gray@codurance.com"]
       },
       {
-        "id": 2,
+        "id": 54,
         "title": "Andreis Test",
         "location": {
-          "id": 2,
+          "id": 3,
           "name": "Kitchen",
           "description": "Kitchen on 3rd floor",
           "location": "3rd Floor, London Office",

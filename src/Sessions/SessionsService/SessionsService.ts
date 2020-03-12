@@ -25,7 +25,7 @@ const formatSessions = (sessions) => {
     };
 
     formattedSessions.push({
-      id: sessions[i]["id"],
+      id: sessions[i]["sessionid"],
       title: sessions[i]["title"],
       location: {
         id: sessions[i]["location_id"],
