@@ -15,26 +15,26 @@ describe("getAllSessions", () => {
   it("should return sessions in the correct format", async () => {
     const mockResult = [
       {
-        sessionid: 53,
+        sessionid: 10,
         id: 1,
-        presenter: 'Matt',
-        time: '12:30',
-        title: 'Matts Test',
+        presenter: 'Test Presenter 1',
+        time: '12:00',
+        title: 'Test 1',
         type: 'Demo',
         location_id: 1,
         description: 'Small Meeting Room',
         facilities: 'TV, Chromecast',
         location: '3rd Floor, London Office',
         name: 'Small Meeting Room',
-        session_id: '53',
-        likes: 'matthew.gray@codurance.com'
+        session_id: 10,
+        likes: 'jo.bloggs@codurance.com'
       },
       {
-        sessionid: 54,
+        sessionid: 11,
         id: 3,
-        presenter: 'Andrei',
-        time: '13:13',
-        title: 'Andreis Test',
+        presenter: 'Test Presenter 2',
+        time: '13:00',
+        title: 'Test 2',
         type: 'Practical',
         location_id: 3,
         description: 'Kitchen on 3rd floor',
@@ -50,7 +50,8 @@ describe("getAllSessions", () => {
 
     const expectedResult = [
       {
-        "id": 53, "title": "Matts Test",
+        "id": 10,
+        "title": "Test 1",
         "location": {
           "id": 1,
           "name": "Small Meeting Room",
@@ -58,14 +59,14 @@ describe("getAllSessions", () => {
           "location": "3rd Floor, London Office",
           "facilities": "TV, Chromecast"
         },
-        "time": "12:30",
-        "presenter": "Matt",
+        "time": "12:00",
+        "presenter": "Test Presenter 1",
         "type": "Demo",
-        "likes": ["matthew.gray@codurance.com"]
+        "likes": ["jo.bloggs@codurance.com"]
       },
       {
-        "id": 54,
-        "title": "Andreis Test",
+        "id": 11,
+        "title": "Test 2",
         "location": {
           "id": 3,
           "name": "Kitchen",
@@ -73,8 +74,8 @@ describe("getAllSessions", () => {
           "location": "3rd Floor, London Office",
           "facilities": "TV, WiFi, Tables, Chromecast, HDMI"
         },
-        "time": "13:13",
-        "presenter": "Andrei",
+        "time": "13:00",
+        "presenter": "Test Presenter 2",
         "type": "Practical",
         "likes": []
       }
