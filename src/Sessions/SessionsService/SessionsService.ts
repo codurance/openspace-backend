@@ -12,7 +12,7 @@ export const getAllSessions = async (repo: SessionsRepository) => {
 //   return formatSessions(await repo.editSession(id));
 // };
 
-const formatSessions = (sessions: object[]) => {
+const formatSessions = (sessions) => {
 
   const formattedSessions: object[] = [];
 
