@@ -1,7 +1,16 @@
-export const getAllSessions = async (repo) => {
+import SessionsRepository from "../SessionsRepository/SessionsRepository";
 
+export const getAllSessions = async (repo: SessionsRepository) => {
+  try {
   return formatSessions(await repo.getAllSessions());
+  } catch (e) {
+    console.log(e.stack);
+  }
 };
+
+// export const editSession = async (repo: SessionsRepository, id: number) => {
+//   return formatSessions(await repo.editSession(id));
+// };
 
 const formatSessions = (sessions: object[]) => {
 

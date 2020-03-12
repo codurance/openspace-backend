@@ -13,43 +13,48 @@ class SessionsRepository {
     database: process.env.PROD_DB_NAME
   });
 
-  async getAllSessions() {
+  async getAllSessions(): Promise<object[]> {
 
     await this.client.connect();
 
     try {
-      const postgresResult = await this.client
+      const result = await this.client
           .query(`
               SELECT *
               FROM sessions
                        LEFT JOIN spaces s on sessions.location_id = s.id
                        LEFT JOIN session_likes sl on sessions.id = sl.session_id`);
 
-      return postgresResult.rows;
-    }
-     finally {
+      return result.rows;
+    } catch (e) {
+      console.log(e.stack)
+    } finally {
       await this.client.end();
     }
   }
 
-  //TODO: Use node-postgres instead of ts-postgres to work with the database. Also mock the database using CREATE TEMPORARY TABLE
+  //TODO: Mock the database using CREATE TEMPORARY TABLE:
   // https://medium.com/geoblinktech/testing-postgres-application-one-simple-trick-eec587cd964
 
-  // async editSession(id: number) {
-  //
-  //   await this.client.connect();
-  //
-  //   try {
-  //     await this.client.query(`
-  //                 UPDATE sessions
-  //                 SET time = '12:50'
-  //                 where sessions.id = ${id}
-  //         `
-  //     );
-  //   } finally {
-  //     await this.client.end();
-  //   }
-  // }
+  async editSession(id: number) {
+
+    const result = await this.client.connect();
+
+    try {
+      await this.client.query(`
+                  UPDATE sessions
+                  SET time = '12:30'
+                  WHERE sessions.id = $1
+                  RETURNING sessions.time`,
+          [id]);
+      console.log(result);
+      return result;
+    } catch (e) {
+      console.log(e.stack)
+    } finally {
+      await this.client.end();
+    }
+  }
 }
 
 export default SessionsRepository

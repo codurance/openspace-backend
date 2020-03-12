@@ -44,7 +44,7 @@ describe("getAllSessions", () => {
       }
     ];
 
-    when(repositoryMock.getAllSessions()).thenResolve(mockResult);
+    when(await repositoryMock.getAllSessions()).thenReturn(mockResult);
 
     const expectedResult = [
       {
