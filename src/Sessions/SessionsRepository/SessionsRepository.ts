@@ -26,85 +26,61 @@ const endPool = async (client: PoolClient, pool: Pool) => {
   await pool.end();
 };
 
+const query = async (query: string, values) => {
+  const pool = createPool();
+  const client = await connect(pool);
+
+  try {
+    const result = await client.query(query, values);
+    return result.rows;
+  } catch (e) {
+    throw e
+  } finally {
+    await endPool(client, pool);
+  }
+};
+
 class SessionsRepository {
 
   getAllSessions = async () => {
-    const pool = createPool();
-    const client = await connect(pool);
-
-    try {
-      const result = await client.query(`
-          SELECT sessions.id as sessionid, *
-          FROM sessions
-                   JOIN spaces s on sessions.location_id = s.id
-                   lEFT JOIN session_likes sl on sessions.id = sl.session_id`);
-      return result.rows;
-    } catch (e) {
-      throw e
-    } finally {
-      await endPool(client, pool);
-    }
+    return query(`
+        SELECT sessions.id as sessionid, *
+        FROM sessions
+                 JOIN spaces s on sessions.location_id = s.id
+                 lEFT JOIN session_likes sl on sessions.id = sl.session_id`, []);
   };
 
   addSession = async (session) => {
-    const pool = createPool();
-    const client = await connect(pool);
-
     const {presenter, time, title, type, location_id} = session;
-
-    try {
-      const result = await client.query(`
+    return query (`
                   INSERT into sessions (presenter, time, title, type, location_id)
                   VALUES ($1, $2, $3, $4, $5)
                   RETURNING *`,
-          [presenter, time, title, type, location_id]);
-      return result.rows;
-    } catch (e) {
-      throw e
-    } finally {
-      await endPool(client, pool);
-    }
+        [presenter, time, title, type, location_id]);
   };
 
   editSession = async (id: number, session) => {
-    const pool = createPool();
-    const client = await connect(pool);
-
     const {presenter, time, title, type, location_id} = session;
-
-    try {
-      const result = await client.query(`
+    return query(`
                   UPDATE sessions
-                  SET presenter = $2, time = $3, title = $4, type = $5, location_id = $6
+                  SET presenter = $2,
+                      time = $3,
+                      title = $4,
+                      type = $5,
+                      location_id = $6
                   WHERE sessions.id = $1
                   RETURNING *`,
           [id, presenter, time, title, type, location_id]);
-      return result.rows;
-    } catch (e) {
-      throw e
-    } finally {
-      await endPool(client, pool);
-    }
   };
 
   deleteSession = async (id: number) => {
-    const pool = createPool();
-    const client = await connect(pool);
-
-    try {
-      const result = await client.query(`
-                  DELETE
-                  from sessions
-                  WHERE sessions.id = $1
-                  RETURNING *`,
-          [id]);
-      return result.rows;
-    } catch (e) {
-      throw e
-    } finally {
-      await endPool(client, pool);
-    }
-  }
+    return query(`
+                DELETE
+                from sessions
+                WHERE sessions.id = $1
+                RETURNING *`,
+        [id]);
+  };
 }
 
 export default SessionsRepository

@@ -18,10 +18,6 @@ export const addSession = async (repo: SessionsRepository, request: {}) => {
   }
 };
 
-// export const editSession = async (repo: SessionsRepository, id: number) => {
-//   return formatSessions(await repo.editSession(id));
-// };
-
 const formatSessions = (sessions: {}[]) => {
 
   const formattedSessions: {}[] = [];
