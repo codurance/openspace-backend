@@ -59,6 +59,8 @@ describe("editSession", () => {
     });
 
     expect(editedFields).toStrictEqual(expectedResult);
+
+    await sessionsRepository.deleteSession(editedFields[0].id);
   })
 });
 

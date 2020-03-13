@@ -10,9 +10,7 @@ export const getAllSessions = async (repo: SessionsRepository) => {
 
 export const addSession = async (repo: SessionsRepository, request: {}) => {
   try {
-    const result = await repo.addSession(request);
-    console.log(result);
-  return result;
+    return await repo.addSession(request);
   } catch (e) {
     console.log(e.stack)
   }
