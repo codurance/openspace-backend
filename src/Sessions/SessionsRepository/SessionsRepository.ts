@@ -29,7 +29,6 @@ const endPool = async (client: PoolClient, pool: Pool) => {
 class SessionsRepository {
 
   getAllSessions = async () => {
-
     const pool = createPool();
     const client = await connect(pool);
 
@@ -39,7 +38,6 @@ class SessionsRepository {
           FROM sessions
                    JOIN spaces s on sessions.location_id = s.id
                    lEFT JOIN session_likes sl on sessions.id = sl.session_id`);
-      console.log(result.rows);
       return result.rows;
     } catch (e) {
       throw e
@@ -49,7 +47,6 @@ class SessionsRepository {
   };
 
   addSession = async (session) => {
-
     const pool = createPool();
     const client = await connect(pool);
 
@@ -70,7 +67,6 @@ class SessionsRepository {
   };
 
   editSession = async (id: number) => {
-
     const pool = createPool();
     const client = await connect(pool);
 
@@ -88,6 +84,25 @@ class SessionsRepository {
       await endPool(client, pool);
     }
   };
+
+  deleteSession = async (id: number) => {
+    const pool = createPool();
+    const client = await connect(pool);
+
+    try {
+      const result = await client.query(`
+                  DELETE
+                  from sessions
+                  WHERE sessions.id = $1
+                  RETURNING *`,
+          [id]);
+      return result.rows;
+    } catch (e) {
+      throw e
+    } finally {
+      await endPool(client, pool);
+    }
+  }
 }
 
 export default SessionsRepository
