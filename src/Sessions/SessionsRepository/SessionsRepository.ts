@@ -66,17 +66,19 @@ class SessionsRepository {
     }
   };
 
-  editSession = async (id: number) => {
+  editSession = async (id: number, session) => {
     const pool = createPool();
     const client = await connect(pool);
+
+    const {presenter, time, title, type, location_id} = session;
 
     try {
       const result = await client.query(`
                   UPDATE sessions
-                  SET time = '13:30'
+                  SET presenter = $2, time = $3, title = $4, type = $5, location_id = $6
                   WHERE sessions.id = $1
-                  RETURNING sessions.time`,
-          [id]);
+                  RETURNING *`,
+          [id, presenter, time, title, type, location_id]);
       return result.rows;
     } catch (e) {
       throw e
