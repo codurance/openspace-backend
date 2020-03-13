@@ -69,49 +69,25 @@ class SessionsRepository {
     }
   };
 
+  editSession = async (id: number) => {
 
-  // editSession = async () => {
-  //
-  //   const pool = createPool();
-  //   const client = await connect(pool);
-  //
-  //   try {
-  //     const result = await client.query(`
-  //                 INSERT into sessions (presenter, time, title, type, location_id)
-  //                 VALUES ($1, $2, $3, $4, $5)
-  //                 RETURNING *`,
-  //         []);
-  //     return result.rows;
-  //   } catch (e) {
-  //     throw e
-  //   } finally {
-  //     await endPool(client, pool);
-  //   }
-  // };
+    const pool = createPool();
+    const client = await connect(pool);
 
-
-
-
-  // async editSession(id: number) {
-  //
-  //   this.checkForErrors();
-  //   const result = await this.pool.connect();
-  //
-  //   try {
-  //     await this.pool.query(`
-  //                 UPDATE sessions
-  //                 SET time = '12:30'
-  //                 WHERE sessions.id = $1
-  //                 RETURNING sessions.time`,
-  //         [id]);
-  //     console.log(result);
-  //     return result;
-  //   } catch (e) {
-  //     console.log(e.stack)
-  //   } finally {
-  //     await this.pool.end();
-  //   }
-  // }
+    try {
+      const result = await client.query(`
+                  UPDATE sessions
+                  SET time = '13:30'
+                  WHERE sessions.id = $1
+                  RETURNING sessions.time`,
+          [id]);
+      return result.rows;
+    } catch (e) {
+      throw e
+    } finally {
+      await endPool(client, pool);
+    }
+  };
 }
 
 export default SessionsRepository
