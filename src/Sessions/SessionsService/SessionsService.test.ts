@@ -1,11 +1,24 @@
-import {getAllSessions} from "./SessionsService";
+import {addSession, getAllSessions} from "./SessionsService";
 import SessionsRepository from "../SessionsRepository/SessionsRepository";
 import {instance, mock, verify, when} from "ts-mockito";
 
-describe("getAllSessions", () => {
+const getRepositoryMock = () => {
+  return mock<SessionsRepository>();
+};
 
-  const repositoryMock = mock<SessionsRepository>();
-  const repositoryMockInstance = instance(repositoryMock);
+const getRepositoryMockInstance = (mock) => {
+  return instance(mock);
+};
+
+let repositoryMock;
+let repositoryMockInstance;
+
+beforeEach(() => {
+  repositoryMock = getRepositoryMock();
+  repositoryMockInstance = getRepositoryMockInstance(repositoryMock);
+});
+
+describe("getAllSessions", () => {
 
   it("should call SessionsRepository to get all sessions", () => {
     getAllSessions(repositoryMockInstance);
@@ -83,5 +96,15 @@ describe("getAllSessions", () => {
 
     expect(await getAllSessions(repositoryMockInstance)).toStrictEqual(expectedResult);
 
+  });
+});
+
+describe("addSession", () => {
+
+  it("should add a session", () => {
+    const request = {presenter: "Tester", time: "15:30", title: "Test", type: "Round Table", location_id: 11};
+
+    addSession(repositoryMockInstance, request);
+    verify(repositoryMock.addSession(request)).called();
   });
 });

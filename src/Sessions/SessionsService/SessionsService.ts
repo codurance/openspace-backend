@@ -8,9 +8,15 @@ export const getAllSessions = async (repo: SessionsRepository) => {
   }
 };
 
-// export const addSession = async (repo: SessionsRepository, request: {}) => {
-//   return
-// };
+export const addSession = async (repo: SessionsRepository, request: {}) => {
+  try {
+    const result = await repo.addSession(request);
+    console.log(result);
+  return result;
+  } catch (e) {
+    console.log(e.stack)
+  }
+};
 
 // export const editSession = async (repo: SessionsRepository, id: number) => {
 //   return formatSessions(await repo.editSession(id));
