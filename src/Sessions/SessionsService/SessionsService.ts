@@ -8,13 +8,17 @@ export const getAllSessions = async (repo: SessionsRepository) => {
   }
 };
 
+// export const addSession = async (repo: SessionsRepository, request: {}) => {
+//   return
+// };
+
 // export const editSession = async (repo: SessionsRepository, id: number) => {
 //   return formatSessions(await repo.editSession(id));
 // };
 
-const formatSessions = (sessions) => {
+const formatSessions = (sessions: {}[]) => {
 
-  const formattedSessions: object[] = [];
+  const formattedSessions: {}[] = [];
 
   for (let i = 0; i < sessions.length; i++) {
 
