@@ -5,9 +5,7 @@ import SessionsRepository from "./src/Sessions/SessionsRepository/SessionsReposi
 export const getSessions: Handler = async (_event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify(
-      await getAllSessions(new SessionsRepository)
-    )
+    body: await getAllSessions(new SessionsRepository)
   };
 
   cb(null, response);
