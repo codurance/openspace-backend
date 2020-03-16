@@ -16,11 +16,15 @@ export const addSession = async (repo: SessionsRepository, request: {}) => {
   }
 };
 
+const numberOf = (sessions: {}[]): number =>{
+  return sessions === null ? 0: sessions.length;
+};
+
 const formatSessions = (sessions: {}[]) => {
 
   const formattedSessions: {}[] = [];
 
-  for (let i = 0; i < sessions.length; i++) {
+  for (let i = 0; i < numberOf(sessions); i++) {
 
     const likes = () => {
       return sessions[i]["likes"] !== null
