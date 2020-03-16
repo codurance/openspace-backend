@@ -1,28 +1,15 @@
 import {APIGatewayEvent, Callback, Context, Handler} from 'aws-lambda';
+import {getAllSessions} from "./src/Sessions/SessionsService/SessionsService";
+import SessionsRepository from "./src/Sessions/SessionsRepository/SessionsRepository";
 
-
-export const hello: Handler = (event: APIGatewayEvent, _context: Context, cb: Callback) => {
+export const getSessions: Handler = (event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go Serverless Webpack (Typescript) v1.0! Your function executed successfully!',
+      message: getAllSessions(new SessionsRepository),
       input: event,
     }),
   };
 
   cb(null, response);
 };
-
-export const helloAgain: Handler = (event: APIGatewayEvent, _context: Context, cb: Callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Hello again!',
-      input: event,
-    }),
-  };
-
-  cb(null, response);
-};
-
-

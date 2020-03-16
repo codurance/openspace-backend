@@ -23,16 +23,9 @@ provider:
   profile: open-space-serverless-admin
 
 functions:
-  hello:
-    handler: handler.hello
+  getSessions:
+    handler: handler.getSessions
     events:
       - http:
           method: get
-          path: hello
-
-  helloAgain:
-    handler: handler.helloAgain
-    events:
-      - http:
-          method: get
-          path: hello/again
+          path: api/sessions
