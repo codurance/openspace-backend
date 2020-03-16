@@ -73,10 +73,34 @@ describe("deleteSession", () => {
       type: "Round Table",
       location_id: 11
     });
+
     const sessionId = addedSession[0].id;
 
     const result = await sessionsRepository.deleteSession(sessionId);
 
     expect(result[0].id).toStrictEqual(sessionId.toString());
+  })
+});
+
+describe("addLike", () => {
+  test("should add email and id for a given session id", async () => {
+    const addedSession = await sessionsRepository.addSession({
+      presenter: "Tester",
+      time: "15:30",
+      title: "Test",
+      type: "Round Table",
+      location_id: 11
+    });
+
+    const sessionId = addedSession[0].id;
+    const userEmail = "testuser@codurance.com";
+    const expectedResult = [{likes: userEmail, session_id: addedSession[0].id,}];
+
+    const addedLike = await sessionsRepository.addLike(sessionId, userEmail);
+
+    expect(addedLike).toStrictEqual(expectedResult);
+
+    await sessionsRepository.deleteLike(addedLike[0].session_id);
+    await sessionsRepository.deleteSession(addedSession[0].id);
   })
 });

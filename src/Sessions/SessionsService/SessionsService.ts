@@ -2,7 +2,7 @@ import SessionsRepository from "../SessionsRepository/SessionsRepository";
 
 export const getAllSessions = async (repo: SessionsRepository) => {
   try {
-  return formatSessions(await repo.getAllSessions());
+    return formatSessions(await repo.getAllSessions());
   } catch (e) {
     console.log(e.stack);
   }
@@ -16,8 +16,8 @@ export const addSession = async (repo: SessionsRepository, request: {}) => {
   }
 };
 
-const numberOf = (sessions: {}[]): number =>{
-  return sessions === null ? 0: sessions.length;
+const numberOf = (sessions: {}[]): number => {
+  return sessions === null ? 0 : sessions.length;
 };
 
 const formatSessions = (sessions: {}[]) => {
