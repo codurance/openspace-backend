@@ -29,3 +29,10 @@ functions:
       - http:
           method: get
           path: api/sessions
+
+  addSession:
+    handler: handler.addASession
+    events:
+      - http:
+          method: post
+          path: api/sessions
