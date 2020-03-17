@@ -102,7 +102,7 @@ describe("getAllSessions", () => {
 describe("addSession", () => {
 
   it("should add a session", () => {
-    const request = {presenter: "Tester", time: "15:30", title: "Test", type: "Round Table", location_id: 11};
+    const request = {title: "Test", spacedId: 11, time: "15:30", presenter: "Tester", type: "Round Table"};
 
     addSession(repositoryMockInstance, request);
     verify(repositoryMock.addSession(request)).called();

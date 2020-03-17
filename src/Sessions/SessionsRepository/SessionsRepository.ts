@@ -50,12 +50,12 @@ class SessionsRepository {
   };
 
   addSession = async (session) => {
-    const {presenter, time, title, type, location_id} = session;
+    const {title, spaceId, time, presenter, type} = session;
     return query(`
-                INSERT into sessions (presenter, time, title, type, location_id)
+                INSERT into sessions (title, location_id, time, presenter, type)
                 VALUES ($1, $2, $3, $4, $5)
                 RETURNING *`,
-        [presenter, time, title, type, location_id]);
+        [title, spaceId, time, presenter, type]);
   };
 
   editSession = async (id: number, session) => {

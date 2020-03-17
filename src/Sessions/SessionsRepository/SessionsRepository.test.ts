@@ -17,17 +17,20 @@ describe("getAllSessions", () => {
 describe("addSession", () => {
   test("should add session to database", async () => {
     const result = await sessionsRepository.addSession({
-      presenter: "Tester",
-      time: "15:30",
       title: "Test",
+      spaceId: 11,
+      time: "15:30",
+      presenter: "Tester",
       type: "Round Table",
-      location_id: 11
+
     });
     const addedSession = result[0];
 
-    expect(addedSession.title).toBe("Test");
+    const expectedResult =  {"id": addedSession.id, "location_id": "11", "presenter": "Tester", "time": "15:30", "title": "Test", "type": "Round Table"}
 
-    await sessionsRepository.deleteSession(result[0].id);
+    expect(addedSession).toStrictEqual(expectedResult);
+
+    await sessionsRepository.deleteSession(addedSession.id);
   })
 });
 
