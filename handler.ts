@@ -23,13 +23,13 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
     cb(null, response);
 
   } catch (e) {
+    console.log(e.stack);
     const response = {
       statusCode: 400,
       //This is only to match exactly the response from the old backend in Spring,
       //but can probably be changed to something more generic
-      body: new Error("Session type is required")
+      body: "Session type is required"
     };
     cb(null, response);
   }
-
 };
