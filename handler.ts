@@ -31,3 +31,17 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
     cb(null, response);
   }
 };
+
+export const deleteASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
+
+  const repo = new SessionsRepository();
+
+  const result = await repo.deleteSession(parseInt(event.pathParameters.id));
+
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify("Session " + result[0].id + " has been deleted")
+  };
+
+  cb(null, response);
+};

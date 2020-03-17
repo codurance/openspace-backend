@@ -41,3 +41,10 @@ functions:
       - http:
           method: post
           path: api/sessions
+
+  deleteSession:
+    handler: handler.deleteASession
+    events:
+      - http:
+          method: delete
+          path: api/sessions/{id}
