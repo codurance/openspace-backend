@@ -13,12 +13,10 @@ export const getSessions: Handler = async (_event: APIGatewayEvent, _context: Co
 
 export const addASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
 
-  const requestBody = JSON.parse(event.body);
-
   try {
     const response = {
       statusCode: 200,
-      body: JSON.stringify(await addSession(new SessionsRepository, requestBody))
+      body: JSON.stringify(await addSession(new SessionsRepository, event))
     };
     cb(null, response);
 
