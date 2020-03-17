@@ -51,5 +51,7 @@ functions:
 
   editSession:
     handler: handler.editASession
+    events:
+      - http:
           method: put
           path: api/sessions/{id}
