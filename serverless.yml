@@ -20,6 +20,11 @@ provider:
     minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    PROD_DB_URI: ${env:PROD_DB_URI}
+    PROD_DB_USER: ${env:PROD_DB_USER}
+    PROD_DB_PASSWD: ${env:PROD_DB_PASSWD}
+    PROD_DB_NAME: ${env:PROD_DB_NAME}
+    DB_PORT: ${env:DB_PORT}
   profile: open-space-serverless-admin
 
 functions:
