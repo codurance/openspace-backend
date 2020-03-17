@@ -47,7 +47,10 @@ export const deleteASession: Handler = async (event: APIGatewayEvent, _context: 
   cb(null, response);
 };
 
-export const editASession: Handler = async () =>{
+export const editASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
+  const response = {
+    body: JSON.stringify(await repo.editSession(parseInt(event.pathParameters.id), event))
+  };
 
-
+  cb(null, response);
 };

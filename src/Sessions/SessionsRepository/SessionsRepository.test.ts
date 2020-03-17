@@ -26,7 +26,14 @@ describe("addSession", () => {
     });
     const addedSession = result[0];
 
-    const expectedResult =  {"id": addedSession.id, "location_id": "11", "presenter": "Tester", "time": "15:30", "title": "Test", "type": "Round Table"};
+    const expectedResult = {
+      "id": addedSession.id,
+      "location_id": "11",
+      "presenter": "Tester",
+      "time": "15:30",
+      "title": "Test",
+      "type": "Round Table"
+    };
 
     expect(addedSession).toStrictEqual(expectedResult);
 
