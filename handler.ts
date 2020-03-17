@@ -18,6 +18,7 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
       statusCode: 200,
       body: JSON.stringify(await addSession(new SessionsRepository, event))
     };
+
     cb(null, response);
 
   } catch (e) {
@@ -28,14 +29,14 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
       //but can probably be changed to something more generic
       body: "Session type is required"
     };
+
     cb(null, response);
   }
 };
 
+const repo = new SessionsRepository();
+
 export const deleteASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
-
-  const repo = new SessionsRepository();
-
   const result = await repo.deleteSession(parseInt(event.pathParameters.id));
 
   const response = {
@@ -44,4 +45,9 @@ export const deleteASession: Handler = async (event: APIGatewayEvent, _context: 
   };
 
   cb(null, response);
+};
+
+export const editASession: Handler = async () =>{
+
+
 };

@@ -48,3 +48,6 @@ functions:
       - http:
           method: delete
           path: api/sessions/{id}
+
+  editSession:
+    handler: handler.editASession
