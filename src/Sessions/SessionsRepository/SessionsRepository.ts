@@ -50,12 +50,12 @@ class SessionsRepository {
   };
 
   addSession = async (session) => {
-    const {title, spaceId, time, presenter, type} = session;
+    const {title, location_id, time, presenter, type} = session;
     return query(`
                 INSERT into sessions (title, location_id, time, presenter, type)
                 VALUES ($1, $2, $3, $4, $5)
                 RETURNING *`,
-        [title, spaceId, time, presenter, type]);
+        [title, location_id, time, presenter, type]);
   };
 
   editSession = async (id: number, session) => {
@@ -106,15 +106,13 @@ class SessionsRepository {
 
   getSessionById = async (id: number) => {
     return query(`
-                SELECT sessions.id as sessionid, *
+                SELECT *
                 FROM sessions
-                         JOIN spaces s on sessions.location_id = s.id
-                         lEFT JOIN session_likes sl on sessions.id = sl.session_id
+                    lEFT JOIN session_likes sl on sessions.id = sl.session_id
                 WHERE sessions.id = $1`,
         [id]
     )
   };
-
 }
 
 export default SessionsRepository

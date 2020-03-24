@@ -18,7 +18,7 @@ describe("addSession", () => {
   test("should add session to database", async () => {
     const result = await sessionsRepository.addSession({
       title: "Test",
-      spaceId: 11,
+      location_id: 11,
       time: "15:30",
       presenter: "Tester",
       type: "Round Table",
@@ -135,6 +135,33 @@ describe("deleteLike", () => {
     const expectedResult = [{likes: userEmail, session_id: addedSession[0].id}];
 
     expect(deletedLike).toStrictEqual(expectedResult);
+
+    await sessionsRepository.deleteSession(addedSession[0].id);
+  })
+});
+
+describe("getSessionById", () => {
+  test("should get session by id", async () => {
+    const addedSession = await sessionsRepository.addSession({
+      presenter: "Tester",
+      time: "13:00",
+      title: "Test",
+      type: "Practical",
+      location_id: 5
+    });
+
+    const expectedResult = [{
+      id: addedSession[0].id,
+      presenter: 'Tester',
+      time: '13:00',
+      title: 'Test',
+      type: 'Practical',
+      location_id: '5',
+      session_id: null,
+      likes: null
+    }];
+
+    expect(await sessionsRepository.getSessionById(addedSession[0].id)).toStrictEqual(expectedResult);
 
     await sessionsRepository.deleteSession(addedSession[0].id);
   })
