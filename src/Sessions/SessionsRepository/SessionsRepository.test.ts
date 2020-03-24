@@ -104,13 +104,38 @@ describe("addLike", () => {
 
     const sessionId = addedSession[0].id;
     const userEmail = "testuser@codurance.com";
-    const expectedResult = [{likes: userEmail, session_id: addedSession[0].id,}];
 
     const addedLike = await sessionsRepository.addLike(sessionId, userEmail);
+
+    const expectedResult = [{likes: userEmail, session_id: addedSession[0].id}];
 
     expect(addedLike).toStrictEqual(expectedResult);
 
     await sessionsRepository.deleteLike(addedLike[0].session_id);
+    await sessionsRepository.deleteSession(addedSession[0].id);
+  })
+});
+
+describe("deleteLike", () => {
+  test("should delete email and id for a given session id", async () => {
+    const addedSession = await sessionsRepository.addSession({
+      presenter: "Tester",
+      time: "12:00",
+      title: "Test",
+      type: "Demo",
+      location_id: 6
+    });
+
+    const sessionId = addedSession[0].id;
+    const userEmail = "testusertwo@codurance.com";
+    await sessionsRepository.addLike(sessionId, userEmail);
+
+    const deletedLike = await sessionsRepository.deleteLike(sessionId);
+
+    const expectedResult = [{likes: userEmail, session_id: addedSession[0].id}];
+
+    expect(deletedLike).toStrictEqual(expectedResult);
+
     await sessionsRepository.deleteSession(addedSession[0].id);
   })
 });
