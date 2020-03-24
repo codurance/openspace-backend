@@ -54,3 +54,13 @@ export const editASession: Handler = async (event: APIGatewayEvent, _context: Co
 
   cb(null, response);
 };
+
+export const updateALike = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
+  const result = await repo.updateLike(parseInt(event.pathParameters.id),event.pathParameters.email);
+
+  const response = {
+    body: JSON.stringify(result)
+  };
+
+  cb(null, response);
+};

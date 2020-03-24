@@ -81,6 +81,12 @@ class SessionsRepository {
         [id]);
   };
 
+  updateLike = async (id: number, email: string) => {
+    return this.getSessionById(id)[0].likes.includes(email)
+    ? this.deleteLike(id)
+    : this.addLike(id, email)
+  };
+
   addLike = async (id: number, email: string) => {
     return query(`
                 INSERT into session_likes (session_id, likes)
@@ -97,6 +103,18 @@ class SessionsRepository {
                 RETURNING *`,
         [id])
   };
+
+  getSessionById = async (id: number) => {
+    return query(`
+                SELECT sessions.id as sessionid, *
+                FROM sessions
+                         JOIN spaces s on sessions.location_id = s.id
+                         lEFT JOIN session_likes sl on sessions.id = sl.session_id
+                WHERE sessions.id = $1`,
+        [id]
+    )
+  };
+
 }
 
 export default SessionsRepository
