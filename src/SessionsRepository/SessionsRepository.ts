@@ -14,7 +14,6 @@ export const query = async (query: string, values) => {
 };
 
 class SessionsRepository {
-
   getAllSessions = async () => {
     return query(`
         SELECT sessions.id as sessionid, *

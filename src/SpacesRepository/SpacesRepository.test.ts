@@ -9,5 +9,8 @@ beforeEach(async() =>{
 describe("getAllSpaces", () => {
   test("should return all spaces from the database", async () => {
    const result = await spacesRepository.getAllSpaces();
-  })
+
+    console.log(result);
+   expect(typeof result).toBe("object");
+  });
 });
