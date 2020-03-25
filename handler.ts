@@ -1,6 +1,6 @@
 import {APIGatewayEvent, Callback, Context, Handler} from 'aws-lambda';
-import {addSession, getAllSessions, updateLike} from "./src/Sessions/SessionsService/SessionsService";
-import SessionsRepository from "./src/Sessions/SessionsRepository/SessionsRepository";
+import {addSession, getAllSessions, updateLike} from "./src/SessionsService/SessionsService";
+import SessionsRepository from "./src/SessionsRepository/SessionsRepository";
 
 const sessionsRepository = new SessionsRepository();
 

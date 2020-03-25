@@ -1,32 +1,6 @@
-import {Pool, PoolClient} from "pg";
-import {config} from "dotenv";
+import {connect, createPool, endPool} from "../Connection/ConnectionService";
 
-config();
-
-const createPool = (): Pool => {
-  return new Pool({
-    host: process.env.PROD_DB_URI,
-    user: process.env.PROD_DB_USER,
-    password: process.env.PROD_DB_PASSWD,
-    database: process.env.PROD_DB_NAME,
-    port: Number(process.env.DB_PORT)
-  });
-};
-
-const connect = async (pool: Pool): Promise<PoolClient> => {
-  pool.on("error", (err) => {
-    console.error('Unexpected error on idle client', err);
-    process.exit(-1)
-  });
-  return await pool.connect();
-};
-
-const endPool = async (client: PoolClient, pool: Pool) => {
-  client.release();
-  await pool.end();
-};
-
-const query = async (query: string, values) => {
+export const query = async (query: string, values) => {
   const pool = createPool();
   const client = await connect(pool);
   try {
