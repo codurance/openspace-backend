@@ -1,11 +1,13 @@
 import {APIGatewayEvent, Callback, Context, Handler} from 'aws-lambda';
-import {addSession, getAllSessions} from "./src/Sessions/SessionsService/SessionsService";
+import {addSession, getAllSessions, updateLike} from "./src/Sessions/SessionsService/SessionsService";
 import SessionsRepository from "./src/Sessions/SessionsRepository/SessionsRepository";
+
+const sessionsRepository = new SessionsRepository();
 
 export const getSessions: Handler = async (_event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const response = {
     statusCode: 200,
-    body: JSON.stringify(await getAllSessions(new SessionsRepository))
+    body: JSON.stringify(await getAllSessions(sessionsRepository))
   };
 
   cb(null, response);
@@ -16,7 +18,7 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
   try {
     const response = {
       statusCode: 200,
-      body: JSON.stringify(await addSession(new SessionsRepository, event))
+      body: JSON.stringify(await addSession(sessionsRepository, event))
     };
 
     cb(null, response);
@@ -34,10 +36,8 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
   }
 };
 
-const repo = new SessionsRepository();
-
 export const deleteASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
-  const result = await repo.deleteSession(parseInt(event.pathParameters.id));
+  const result = await sessionsRepository.deleteSession(parseInt(event.pathParameters.id));
 
   const response = {
     statusCode: 200,
@@ -49,14 +49,14 @@ export const deleteASession: Handler = async (event: APIGatewayEvent, _context: 
 
 export const editASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const response = {
-    body: JSON.stringify(await repo.editSession(parseInt(event.pathParameters.id), event))
+    body: JSON.stringify(await sessionsRepository.editSession(parseInt(event.pathParameters.id), event))
   };
 
   cb(null, response);
 };
 
 export const updateALike = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
-  const result = await repo.updateLike(parseInt(event.pathParameters.id),event.pathParameters.email);
+  const result = await updateLike(sessionsRepository, parseInt(event.pathParameters.id), event.pathParameters.email);
 
   const response = {
     body: JSON.stringify(result)

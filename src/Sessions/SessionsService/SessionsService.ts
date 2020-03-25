@@ -16,6 +16,13 @@ export const addSession = async (repo: SessionsRepository, request: {}) => {
   }
 };
 
+export const updateLike = async (repo: SessionsRepository, id: number, email: string) => {
+  const session = await repo.getSessionById(id)[0];
+  return session.likes === null || !session.likes.includes(email)
+      ? await repo.addLike(id, email)
+      : await repo.deleteLike(id)
+};
+
 const numberOf = (sessions: {}[]): number => {
   return sessions === null ? 0 : sessions.length;
 };
