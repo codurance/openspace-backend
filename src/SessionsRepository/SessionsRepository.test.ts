@@ -16,18 +16,16 @@ describe("getAllSessions", () => {
 
 describe("addSession", () => {
   test("should add session to database", async () => {
-    const result = await sessionsRepository.addSession({
+    const addedSession = await sessionsRepository.addSession({
       title: "Test",
       location_id: 11,
       time: "15:30",
       presenter: "Tester",
       type: "Round Table",
-
     });
-    const addedSession = result[0];
 
     const expectedResult = {
-      "id": addedSession.id,
+      "id": addedSession[0].id,
       "location_id": "11",
       "presenter": "Tester",
       "time": "15:30",
@@ -35,9 +33,9 @@ describe("addSession", () => {
       "type": "Round Table"
     };
 
-    expect(addedSession).toStrictEqual(expectedResult);
+    expect(addedSession[0]).toStrictEqual(expectedResult);
 
-    await sessionsRepository.deleteSession(addedSession.id);
+    await sessionsRepository.deleteSession(addedSession[0].id);
   })
 });
 
