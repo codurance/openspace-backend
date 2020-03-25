@@ -42,18 +42,18 @@ functions:
           method: post
           path: api/sessions
 
-  deleteSession:
-    handler: SessionsHandler.deleteASession
-    events:
-      - http:
-          method: delete
-          path: api/sessions/{id}
-
   editSession:
     handler: SessionsHandler.editASession
     events:
       - http:
           method: put
+          path: api/sessions/{id}
+
+  deleteSession:
+    handler: SessionsHandler.deleteASession
+    events:
+      - http:
+          method: delete
           path: api/sessions/{id}
 
   updateLike:
@@ -62,3 +62,31 @@ functions:
       - http:
           method: post
           path: {id}/likes/{email}
+
+  getSpaces:
+    handler: SpacesHandler.getSpaces
+    events:
+      - http:
+          method: get
+          path: api/spaces
+
+  addSpace:
+    handler: SpacesHandler.addASpace
+    events:
+      - http:
+          method: post
+          path: api/sessions
+
+  editSpace:
+    handler: SpacesHandler.editASpace
+    events:
+      - http:
+          method: put
+          path: api/spaces/{id}
+
+  deleteSpace:
+    handler: SpacesHandler.deleteASpace
+    events:
+      - http:
+          method: delete
+          path: api/spaces/{id}

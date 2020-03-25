@@ -36,20 +36,20 @@ export const addASession: Handler = async (event: APIGatewayEvent, _context: Con
   }
 };
 
+export const editASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
+  const response = {
+    body: JSON.stringify(await sessionsRepository.editSession(parseInt(event.pathParameters.id), event))
+  };
+
+  cb(null, response);
+};
+
 export const deleteASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
   const result = await sessionsRepository.deleteSession(parseInt(event.pathParameters.id));
 
   const response = {
     statusCode: 200,
     body: JSON.stringify("Session " + result[0].id + " has been deleted")
-  };
-
-  cb(null, response);
-};
-
-export const editASession: Handler = async (event: APIGatewayEvent, _context: Context, cb: Callback) => {
-  const response = {
-    body: JSON.stringify(await sessionsRepository.editSession(parseInt(event.pathParameters.id), event))
   };
 
   cb(null, response);
