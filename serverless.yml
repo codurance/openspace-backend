@@ -61,7 +61,7 @@ functions:
     events:
       - http:
           method: post
-          path: /{id}/likes/{email}
+          path: /api/sessions/{id}/likes/{email}
 
   getSpaces:
     handler: SpacesHandler.getSpaces
