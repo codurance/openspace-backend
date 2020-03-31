@@ -57,7 +57,7 @@ functions:
           path: /api/sessions/{id}
 
   updateLike:
-    handler: SessionsHandler.addALike
+    handler: SessionsHandler.updateALike
     events:
       - http:
           method: post
@@ -75,7 +75,7 @@ functions:
     events:
       - http:
           method: post
-          path: /api/sessions
+          path: /api/spaces
 
   editSpace:
     handler: SpacesHandler.editASpace
