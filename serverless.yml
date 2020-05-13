@@ -29,7 +29,6 @@ provider:
     PROD_DB_PASSWD: ${env:PROD_DB_PASSWD}
     PROD_DB_NAME: ${env:PROD_DB_NAME}
     DB_PORT: ${env:DB_PORT}
-  profile: open-space-serverless-admin
 
 functions:
   getSessions:
